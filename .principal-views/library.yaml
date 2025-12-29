@@ -1,0 +1,113 @@
+version: "1.0.0"
+name: "Grok-1 Component Library"
+
+nodeComponents:
+  # Core Model Components
+  language_model:
+    description: "Main Grok-1 language model with MoE architecture"
+    color: "#3B82F6"
+    tags: ["model", "grok-1", "moe"]
+    defaultLabel: "Grok-1 Model"
+  
+  transformer:
+    description: "Transformer block with attention and MoE layers"
+    color: "#10B981"
+    tags: ["model", "transformer", "attention"]
+    defaultLabel: "Transformer Block"
+  
+  moe_layer:
+    description: "Mixture of Experts layer with 2 experts per token"
+    color: "#F59E0B"
+    tags: ["model", "moe", "experts"]
+    defaultLabel: "MoE Layer"
+  
+  attention:
+    description: "Multi-head attention with rotary embeddings"
+    color: "#8B5CF6"
+    tags: ["model", "attention", "rope"]
+    defaultLabel: "Attention"
+  
+  # Data Components
+  tokenizer:
+    description: "SentencePiece tokenizer for text processing"
+    color: "#EF4444"
+    tags: ["data", "tokenizer", "nlp"]
+    defaultLabel: "Tokenizer"
+  
+  checkpoint:
+    description: "Model weights and parameters storage"
+    color: "#6B7280"
+    tags: ["data", "storage", "weights"]
+    defaultLabel: "Checkpoint"
+  
+  # Execution Components
+  inference_runner:
+    description: "Handles model inference and sampling"
+    color: "#06B6D4"
+    tags: ["execution", "inference", "jax"]
+    defaultLabel: "Inference Runner"
+  
+  model_runner:
+    description: "Main execution interface for the model"
+    color: "#84CC16"
+    tags: ["execution", "model", "interface"]
+    defaultLabel: "Model Runner"
+  
+  # External Interfaces
+  user_input:
+    description: "Input text from user"
+    color: "#F97316"
+    tags: ["interface", "input", "user"]
+    defaultLabel: "User Input"
+  
+  model_output:
+    description: "Generated text output"
+    color: "#EC4899"
+    tags: ["interface", "output", "generation"]
+    defaultLabel: "Model Output"
+
+edgeComponents:
+  # Data Flow
+  data_flow:
+    description: "Data passes between components"
+    color: "#3B82F6"
+    style: "solid"
+    tags: ["data", "flow"]
+  
+  token_flow:
+    description: "Tokenized data flow"
+    color: "#10B981"
+    style: "solid"
+    tags: ["data", "tokens", "flow"]
+  
+  # Control Flow
+  control_flow:
+    description: "Control signal between components"
+    color: "#F59E0B"
+    style: "dashed"
+    tags: ["control", "flow"]
+  
+  execution_flow:
+    description: "Execution order and dependencies"
+    color: "#8B5CF6"
+    style: "dashed"
+    tags: ["control", "execution", "flow"]
+  
+  # Model Connections
+  model_connection:
+    description: "Connection between model components"
+    color: "#EF4444"
+    style: "solid"
+    tags: ["model", "connection"]
+  
+  attention_flow:
+    description: "Attention mechanism data flow"
+    color: "#06B6D4"
+    style: "solid"
+    tags: ["model", "attention", "flow"]
+  
+  expert_routing:
+    description: "Routing to specific experts in MoE"
+    color: "#84CC16"
+    style: "solid"
+    tags: ["model", "moe", "routing"]

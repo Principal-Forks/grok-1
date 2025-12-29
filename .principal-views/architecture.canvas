@@ -1,0 +1,259 @@
+{
+  "pv": {
+    "name": "Grok-1 Architecture",
+    "version": "1.0.0"
+  },
+  "nodes": [
+    {
+      "id": "user_input",
+      "type": "text",
+      "x": 100,
+      "y": 200,
+      "width": 120,
+      "height": 60,
+      "color": "#F97316",
+      "text": "# User Input\n\nRaw text input from user",
+      "pv": {
+        "nodeType": "user_input"
+      }
+    },
+    {
+      "id": "tokenizer",
+      "type": "text",
+      "x": 300,
+      "y": 200,
+      "width": 120,
+      "height": 60,
+      "color": "#EF4444",
+      "text": "# Tokenizer\n\nSentencePiece tokenizer",
+      "pv": {
+        "nodeType": "tokenizer"
+      }
+    },
+    {
+      "id": "language_model",
+      "type": "text",
+      "x": 500,
+      "y": 200,
+      "width": 140,
+      "height": 60,
+      "color": "#3B82F6",
+      "text": "# Grok-1 Model\n\n314B parameter MoE",
+      "pv": {
+        "nodeType": "language_model"
+      }
+    },
+    {
+      "id": "transformer_1",
+      "type": "text",
+      "x": 700,
+      "y": 100,
+      "width": 120,
+      "height": 60,
+      "color": "#10B981",
+      "text": "# Transformer 1\n\nFirst layer",
+      "pv": {
+        "nodeType": "transformer"
+      }
+    },
+    {
+      "id": "transformer_2",
+      "type": "text",
+      "x": 700,
+      "y": 212,
+      "width": 120,
+      "height": 60,
+      "color": "#10B981",
+      "text": "# Transformer 2\n\nSecond layer",
+      "pv": {
+        "nodeType": "transformer"
+      }
+    },
+    {
+      "id": "transformer_n",
+      "type": "text",
+      "x": 700,
+      "y": 316,
+      "width": 120,
+      "height": 60,
+      "color": "#10B981",
+      "text": "# Transformer N\n\nFinal layer (64)",
+      "pv": {
+        "nodeType": "transformer"
+      }
+    },
+    {
+      "id": "attention",
+      "type": "text",
+      "x": 920,
+      "y": 115,
+      "width": 120,
+      "height": 60,
+      "color": "#8B5CF6",
+      "text": "# Attention\n\n48Q/8KV heads",
+      "pv": {
+        "nodeType": "attention"
+      }
+    },
+    {
+      "id": "moe_layer",
+      "type": "text",
+      "x": 920,
+      "y": 207,
+      "width": 120,
+      "height": 60,
+      "color": "#F59E0B",
+      "text": "# MoE Layer\n\n8 experts, 2 active",
+      "pv": {
+        "nodeType": "moe_layer"
+      }
+    },
+    {
+      "id": "checkpoint",
+      "type": "text",
+      "x": 510,
+      "y": 351,
+      "width": 120,
+      "height": 60,
+      "color": "#6B7280",
+      "text": "# Checkpoint\n\nModel weights",
+      "pv": {
+        "nodeType": "checkpoint"
+      }
+    },
+    {
+      "id": "inference_runner",
+      "type": "text",
+      "x": 1085,
+      "y": 260,
+      "width": 140,
+      "height": 60,
+      "color": "#06B6D4",
+      "text": "# Inference\n\nJAX execution",
+      "pv": {
+        "nodeType": "inference_runner"
+      }
+    },
+    {
+      "id": "model_output",
+      "type": "text",
+      "x": 1300,
+      "y": 200,
+      "width": 120,
+      "height": 60,
+      "color": "#EC4899",
+      "text": "# Output\n\nGenerated text",
+      "pv": {
+        "nodeType": "model_output"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "input_to_tokenizer",
+      "fromNode": "user_input",
+      "toNode": "tokenizer",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "#3B82F6",
+      "pv": {
+        "edgeType": "data_flow"
+      }
+    },
+    {
+      "id": "tokenizer_to_model",
+      "fromNode": "tokenizer",
+      "toNode": "language_model",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "#10B981",
+      "pv": {
+        "edgeType": "token_flow"
+      }
+    },
+    {
+      "id": "model_to_transformers",
+      "fromNode": "language_model",
+      "toNode": "transformer_1",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "#EF4444",
+      "pv": {
+        "edgeType": "model_connection"
+      }
+    },
+    {
+      "id": "checkpoint_to_model",
+      "fromNode": "checkpoint",
+      "toNode": "language_model",
+      "fromSide": "top",
+      "toSide": "bottom",
+      "color": "#3B82F6",
+      "pv": {
+        "edgeType": "data_flow"
+      }
+    },
+    {
+      "id": "transformers_to_runner",
+      "fromNode": "transformer_n",
+      "toNode": "inference_runner",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "#8B5CF6",
+      "pv": {
+        "edgeType": "execution_flow"
+      }
+    },
+    {
+      "id": "runner_to_output",
+      "fromNode": "inference_runner",
+      "toNode": "model_output",
+      "fromSide": "right",
+      "toSide": "left",
+      "color": "#3B82F6",
+      "pv": {
+        "edgeType": "data_flow"
+      }
+    },
+    {
+      "id": "edge-transformer_2-transformer_n-1767049684639",
+      "fromNode": "transformer_2",
+      "toNode": "transformer_n",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "pv": {
+        "edgeType": "model_connection"
+      }
+    },
+    {
+      "id": "edge-transformer_1-transformer_2-1767049684639",
+      "fromNode": "transformer_1",
+      "toNode": "transformer_2",
+      "fromSide": "bottom",
+      "toSide": "top",
+      "pv": {
+        "edgeType": "model_connection"
+      }
+    },
+    {
+      "id": "edge-transformer_1-moe_layer-1767049684639",
+      "fromNode": "transformer_1",
+      "toNode": "moe_layer",
+      "fromSide": "right",
+      "toSide": "left",
+      "pv": {
+        "edgeType": "expert_routing"
+      }
+    },
+    {
+      "id": "edge-transformer_1-attention-1767049684639",
+      "fromNode": "transformer_1",
+      "toNode": "attention",
+      "fromSide": "right",
+      "toSide": "left",
+      "pv": {
+        "edgeType": "attention_flow"
+      }
+    }
+  ]
+}

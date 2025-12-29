@@ -1,0 +1,30 @@
+{
+  "model": "Grok-1",
+  "version": "1.0.0",
+  "generated_at": "2025-12-29T12:00:00Z",
+  "components": {
+    "nodes": 11,
+    "edges": 10,
+    "node_types": [
+      "user_input", "tokenizer", "language_model", 
+      "transformer", "attention", "moe_layer", 
+      "checkpoint", "inference_runner", "model_output"
+    ],
+    "edge_types": [
+      "data_flow", "token_flow", "model_connection", 
+      "attention_flow", "expert_routing", "execution_flow"
+    ]
+  },
+  "technical_specs": {
+    "parameters": "314B",
+    "architecture": "Mixture of 8 Experts",
+    "layers": 64,
+    "attention_heads": {
+      "query": 48,
+      "key_value": 8
+    },
+    "embedding_size": 6144,
+    "max_sequence_length": 8192,
+    "framework": "JAX"
+  }
+}
